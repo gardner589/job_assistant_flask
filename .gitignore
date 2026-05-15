@@ -3,7 +3,8 @@ __pycache__/
 *.pyc
 *.gguf
 uploads/
-postgres-data/
+postgres-data/*
+!postgres-data/.gitkeep
 node_modules/
 dist/
 *.log
