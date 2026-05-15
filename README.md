@@ -32,12 +32,6 @@ cd job_assistant_flask
 cp .env.example .env
 ```
 
-Open `.env` and set `HOST_MODEL_PATH` to the absolute path of the GGUF model on your machine:
-
-```
-HOST_MODEL_PATH=/absolute/path/to/your/model.gguf
-```
-
 ### 3. Model Setup
 
 This project uses **Huihui-Qwen3-VL-4B-Instruct-abliterated-Q4_K_M.gguf**.
@@ -47,12 +41,18 @@ Download it from Hugging Face:
 noctrex/Huihui-Qwen3-VL-4B-Instruct-abliterated-GGUF
 ```
 
-The model file is **not tracked in git** (2.3 GB). Each collaborator stores it locally and points `HOST_MODEL_PATH` at it.
+The model file is **not tracked in git** (2.3 GB). Create a symlink named `model.gguf` in the project root pointing at wherever the file lives on your machine:
 
-If you use LM Studio, it's likely already at:
+```bash
+ln -s /path/to/Huihui-Qwen3-VL-4B-Instruct-abliterated-Q4_K_M.gguf ./model.gguf
+```
+
+If you use LM Studio, the path is likely:
 ```
 ~/.cache/lm-studio/models/noctrex/Huihui-Qwen3-VL-4B-Instruct-abliterated-GGUF/Huihui-Qwen3-VL-4B-Instruct-abliterated-Q4_K_M.gguf
 ```
+
+Docker Desktop resolves the symlink at startup, so the container sees the real file. The symlink itself is covered by `*.gguf` in `.gitignore` and will never be committed.
 
 ### 4. Build and run
 

@@ -18,7 +18,7 @@ services:
       - ./backend:/app:delegated
       - /app/__pycache__
       - ./uploads:/app/uploads
-      - ${HOST_MODEL_PATH}:/app/model.gguf:ro
+      - ./model.gguf:/app/model.gguf:ro
     restart: unless-stopped
 
   frontend:
