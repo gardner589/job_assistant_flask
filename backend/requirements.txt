@@ -7,4 +7,4 @@ beautifulsoup4==4.12.3
 pypdf==4.2.0
 python-dotenv==1.0.1
 gunicorn==22.0.0
-llama-cpp-python==0.3.4
+llama-cpp-python==0.3.23

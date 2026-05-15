@@ -12,7 +12,7 @@ COPY requirements.txt .
 
 # Install llama-cpp-python first (CPU-only build, takes a few minutes)
 RUN CMAKE_ARGS="-DGGML_BLAS=OFF -DGGML_CUDA=OFF" \
-    pip install --no-cache-dir llama-cpp-python==0.3.4
+    pip install --no-cache-dir llama-cpp-python==0.3.23
 
 # Install the rest of the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
