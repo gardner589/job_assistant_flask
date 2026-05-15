@@ -74,7 +74,7 @@ Open **http://localhost:3000** when containers are up.
 
 ## Notable Details
 
-**Database** — PostgreSQL data is stored in `./postgres-data/` inside the project directory. The directory is tracked in git (via `.gitkeep`) but its contents are gitignored, so each collaborator gets a fresh local database.
+**Database** — PostgreSQL data is stored in `./postgres-data/pgdata/` inside the project directory. The `postgres-data/` directory is tracked in git (via `.gitkeep`) but its contents are gitignored, so each collaborator gets a fresh local database. `PGDATA` is set to a subdirectory so PostgreSQL's `initdb` doesn't conflict with the `.gitkeep` file at the top of the mount.
 
 **Model mount** — The GGUF file is bind-mounted read-only into the backend container at `/app/model.gguf`. It is never copied into the image.
 
