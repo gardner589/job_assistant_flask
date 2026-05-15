@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/job_assistant
+      - MODEL_PATH=/app/model.gguf
+      - LLM_THREADS=4
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app:delegated
+      - /app/__pycache__
+      - ./uploads:/app/uploads
+      - ${HOST_MODEL_PATH}:/app/model.gguf:ro
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=job_assistant
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data:delegated
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped

@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+*.gguf
+uploads/
+postgres-data/
+node_modules/
+dist/
+*.log
+.DS_Store
